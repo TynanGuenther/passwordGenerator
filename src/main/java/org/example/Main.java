@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
-        passgen();
+        System.out.println(passgen());
     }
 
     private static String passgen(){
@@ -25,24 +25,25 @@ public class Main {
             System.out.println("Since you didn't choose yes on any of the options I will make a password for you myself");
             return dumbPass();
         }
-        String possibleChars = "";
+        String possibleChars = "/";
         if(lower){
-            possibleChars.concat(LowerChars);
+            possibleChars = possibleChars + (LowerChars);
         }
         if(upper){
-            possibleChars.concat(UpperChars);
+            possibleChars = possibleChars + (UpperChars);
         }
         if(number){
-            possibleChars.concat(Numbers);
+            possibleChars = possibleChars + (Numbers);
         }
         if(special){
-            possibleChars.concat(SpecialChars);
+            possibleChars = possibleChars + (SpecialChars);
         }
         Random rand = new Random();
         for(int i = 0; i<length; i++){
             char n = possibleChars.charAt(rand.nextInt(possibleChars.length()));
             password = password + n;
         }
+
         return password;
     }
 
@@ -53,14 +54,13 @@ public class Main {
             case NUMBER -> System.out.println("Do you want numbers?");
             case SPECIAL -> System.out.println("Do you want special characters?");
         }
-        String ret = scanner.nextLine();
+        String scan = scanner.nextLine();
         boolean val = false;
-        if(ret == "y"){
+        if(scan.equals("y")){
             val = true;
-        } else if (ret == "n") {
+        } else if (scan.equals("n")) {
             val = false;
-        }
-        else{
+        } else{
             System.out.println("Please make sure your answer is only a 'y' for yes or a 'n' for no. Try again.");
             option(op);
         }
