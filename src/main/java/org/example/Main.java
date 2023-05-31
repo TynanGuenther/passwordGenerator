@@ -1,14 +1,18 @@
 package org.example;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
-
-
+        passgen();
     }
 
     private static String passgen(){
+        final String UpperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        final String LowerChars = "abcdefghijklmnopqrstuvwxyz";
+        final String Numbers = "1234567890";
+        final String SpecialChars = "!@#$%^&*()?-_+=";
         String password = "";
         int length = length("How long do you want the password?");
         System.out.println("Answer the following questions with either 'y' for yes or 'n' for no.");
@@ -19,9 +23,27 @@ public class Main {
 
         if(!lower && !upper && !special && !number){
             System.out.println("Since you didn't choose yes on any of the options I will make a password for you myself");
-            password = dumbPass();
+            return dumbPass();
         }
-
+        String possibleChars = "";
+        if(lower){
+            possibleChars.concat(LowerChars);
+        }
+        if(upper){
+            possibleChars.concat(UpperChars);
+        }
+        if(number){
+            possibleChars.concat(Numbers);
+        }
+        if(special){
+            possibleChars.concat(SpecialChars);
+        }
+        Random rand = new Random();
+        for(int i = 0; i<length; i++){
+            char n = possibleChars.charAt(rand.nextInt(possibleChars.length()));
+            password = password + n;
+        }
+        return password;
     }
 
     private static boolean option(Options op){
@@ -32,15 +54,17 @@ public class Main {
             case SPECIAL -> System.out.println("Do you want special characters?");
         }
         String ret = scanner.nextLine();
+        boolean val = false;
         if(ret == "y"){
-            return true;
+            val = true;
         } else if (ret == "n") {
-            return false;
+            val = false;
         }
         else{
             System.out.println("Please make sure your answer is only a 'y' for yes or a 'n' for no. Try again.");
             option(op);
         }
+        return val;
     }
     private static int length(String question){
         System.out.println(question);
@@ -57,7 +81,8 @@ public class Main {
         return l;
     }
 
-    private static String dumPass(){
+    private static String dumbPass(){
 
+        return "";
     }
 }
