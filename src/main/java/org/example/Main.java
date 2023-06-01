@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
-        System.out.println(passgen());
+        System.out.println("Your Password is: " + passgen());
     }
 
     private static String passgen(){
@@ -22,10 +22,10 @@ public class Main {
         boolean number = option(Options.NUMBER);
 
         if(!lower && !upper && !special && !number){
-            System.out.println("Since you didn't choose yes on any of the options I will make a password for you myself");
+            System.out.println("Since you didn't choose yes on any of the options I will make a password for you myself!\n");
             return dumbPass();
         }
-        String possibleChars = "/";
+        String possibleChars = "";
         if(lower){
             possibleChars = possibleChars + (LowerChars);
         }
@@ -82,7 +82,9 @@ public class Main {
     }
 
     private static String dumbPass(){
-
-        return "";
+        Random rand = new Random();
+        String[] dumbPasses = {"12345", "Password", "Password123", "default", "1"};
+        int dum = rand.nextInt(dumbPasses.length);
+        return dumbPasses[dum];
     }
 }
